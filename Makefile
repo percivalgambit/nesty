@@ -6,6 +6,12 @@ include make/objects.mk
 include make/special_rules.mk
 
 # TODO: split up into per-directory Makefiles
-SRC := $(shell find src/ -type f -name "*.cc" -not -name "*_test.cc")
+STATUS_SRC := src/util/status.cc
+STATUSOR_SRC := $(STATUS_SRC)
+CPU_SRC := $(shell find src/cpu/ -type f -name "*.cc" -not -name "*_test.cc")
+NESTY_SRC := src/main.cc $(CPU_SRC)
 
-$(eval $(call binary,nesty,$(SRC)))
+$(eval $(call binary,nesty,$(NESTY_SRC)))
+
+$(eval $(call test,status_test,src/util/status_test.cc $(STATUS_SRC)))
+$(eval $(call test,statusor_test,src/util/statusor_test.cc $(STATUSOR_SRC)))
