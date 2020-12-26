@@ -8,7 +8,8 @@ include make/special_rules.mk
 # TODO: split up into per-directory Makefiles
 STATUS_SRC := src/util/status.cc
 STATUSOR_SRC := $(STATUS_SRC)
-CPU_SRC := $(shell find src/cpu/ -type f -name "*.cc" -not -name "*_test.cc")
+BIT_MANIP_SRC := src/util/bit_manip.cc
+CPU_SRC := $(shell find src/cpu/ -type f -name "*.cc" -not -name "*_test.cc") $(BIT_MANIP_SRC)
 NESTY_SRC := src/main.cc $(CPU_SRC)
 
 $(eval $(call binary,nesty,$(NESTY_SRC)))
